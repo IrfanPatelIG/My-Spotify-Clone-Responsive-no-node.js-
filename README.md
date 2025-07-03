@@ -75,6 +75,6 @@ A sleek and responsive Spotify clone built using **HTML**, **CSS**, and **JavaSc
 ## 🛠️ Setup
 
 ```bash
-git clone https://github.com/IrfanPatelIG/spotify-clone-repo-testing.git
+git clone https://github.com/IrfanPatelIG/My-Spotify-Clone-Responsive-no-node.js-.git
 cd spotify-clone-repo-testing
 open index.html
