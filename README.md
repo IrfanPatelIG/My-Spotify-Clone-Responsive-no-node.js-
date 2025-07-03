@@ -20,7 +20,7 @@ A sleek and responsive Spotify clone built using **HTML**, **CSS**, and **JavaSc
 
 ### 💻 Desktop View – Default Layout
 
-![Desktop View](ss/Spotify_1.jpg)
+![Desktop View](./ss/Spotify_1.jpg)
 
 - Full sidebar
 - Playlist cards displayed
@@ -30,7 +30,7 @@ A sleek and responsive Spotify clone built using **HTML**, **CSS**, and **JavaSc
 
 ### 🎵 Playlist Loaded View
 
-![Playlist View](ss/Spotify_2.jpg)
+![Playlist View](./ss/Spotify_2.jpg)
 
 - Selected playlist shows songs in the sidebar
 - Default song loaded into playbar
@@ -39,7 +39,7 @@ A sleek and responsive Spotify clone built using **HTML**, **CSS**, and **JavaSc
 
 ### 📱 Mobile View – Card Display
 
-![Mobile Playlist Cards](ss/Spotify_3.jpg)
+![Mobile Playlist Cards](./ss/Spotify_3.jpg)
 
 - Compact layout with menu toggle
 - Cards stacked with clean spacing
@@ -48,7 +48,7 @@ A sleek and responsive Spotify clone built using **HTML**, **CSS**, and **JavaSc
 
 ### 📱 Mobile View – Playlist Opened
 
-![Mobile Playlist View](ss/Spotify_4.jpg)
+![Mobile Playlist View](./ss/Spotify_4.jpg)
 
 - Sidebar overlay slides in with song list
 - All player controls remain accessible
@@ -57,7 +57,7 @@ A sleek and responsive Spotify clone built using **HTML**, **CSS**, and **JavaSc
 
 ### 💻 Tablet View – Balanced Layout
 
-![Tablet View](ss/Spotify_5.jpg)
+![Tablet View](./ss/Spotify_5.jpg)
 
 - Two playlist cards in grid
 - Playbar at bottom remains visible
