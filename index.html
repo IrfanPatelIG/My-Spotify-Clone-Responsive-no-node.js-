@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Spotify</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/utilities.css">
+    <style>
+        :root {
+            --primary-c: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container flex align-center">
+        <nav class="sidebar flex height-100">
+            <div class="home flex">
+                <div class="logoDiv flex align-center">
+                    <img src="img/logo.svg" alt="LOGO">
+                    <svg class="close-icon hover-svg-stoke" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color=var(--primary-c) stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </div>
+                <ul class="nav_bar flex">
+                    <li><img src="img/home.svg" alt="Home">Home</li>
+                    <li><img src="img/search.svg" alt="Search">Search</li>
+                </ul>
+            </div>
+
+            <section class="library flex">
+                <div class="library_top">
+                    <ul class="heading flex align-center">
+                        <li><img src="img/playlist.svg" alt="Your Library">
+                            <h3 class="song-playlist-heading">Your Library</h3>
+                        </li>
+                        <li>
+                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="96px" height="96px" fill-rule="evenodd" fill="#a4a4a4">
+                                <path fill-rule="evenodd" d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"/>
+                            </svg>
+                        </li>
+                    </ul>
+                    <div class="playlist_outter">
+                        <ul id="songs_playlist_id" class="playlist flex">
+                            <!-- All songs will listout here -->
+                            <template>
+                                <li>
+                                    <div class="song_img"></div>
+                                    <div class="song_name">
+                                        <h4>Makkah to madina by road with naath - Bas Khuda hai Khuda | Youtube channel</h4>
+                                        <p>Artist Lorem dolor.</p>
+                                    </div>
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#a4a4a4" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 20V4L19 12L5 20Z" stroke="#a9a9a9" stroke-width="1.5" stroke-linejoin="round"/>
+                                    </svg>
+                                </li>
+                            </template>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer flex">
+                    <div><a href="https://www.spotify.com/jp/legal/"><span>Legal</span></a></div>
+                    <div><a href="https://www.spotify.com/jp/privacy/"><span>Privacy Center</span></a></div>
+                    <div><a href="https://www.spotify.com/jp/legal/privacy-policy/"><span>Privacy Policy</span></a>
+                    </div>
+                    <div><a href="https://www.spotify.com/jp/legal/cookies-policy/"><span>Cookies</span></a></div>
+                    <div><a href="https://www.spotify.com/jp/legal/privacy-policy/#s3"><span>About Ads</span></a></div>
+                    <div><a href="https://www.spotify.com/jp/accessibility/"><span>Accessibility</span></a></div>
+                </div>
+            </section>
+        </nav>
+
+
+        <main class="main_section height-100">
+            <header class="main_header flex wid-100">
+                <div class="header_left flex align-center">
+                    <div class="hamburger">
+                        <svg class="hover-svg-stoke" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3 5L21 5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3 10L21 10" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M3 15L21 15" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="navigation flex align-center">
+                        <svg class="hover-svg-stoke" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 6L9.70711 11.2929C9.37377 11.6262 9.20711 11.7929 9.20711 12C9.20711 12.2071 9.37377 12.3738 9.70711 12.7071L15 18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                        <svg class="hover-svg-stoke" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L14.2929 12.7071C14.6262 12.3738 14.7929 12.2071 14.7929 12C14.7929 11.7929 14.6262 11.6262 14.2929 11.2929L9 6" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                
+                <div class="header_right flex align-center">
+                    <button class="singup_btn border">Sing Up</button>
+                    <button class="login_btn border">Log In</button>
+                </div>
+            </header>
+
+            <div class="main_container flex wid-100">
+                <div class="playlist_heading flex align-center wid-100">
+                    Spotify Playlists
+                </div>
+                <div class="card_container flex wid-100">
+                    <div data-folderName="naath" class="card flex">
+                        <div class="play_button"></div>
+                        <div class="card_img">
+                            <!-- Playlist Image -->
+                        </div>
+                        <div class="card_info flex">
+                            <h3>Top Hits</h3>
+                            <p>Artist Lorem dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                    </div>
+                    <div data-folderName="ncs" class="card flex">
+                        <div class="play_button"></div>
+                        <div class="card_img" style="background-image: url('img/cover.jpg');">
+                            <!-- Playlist Image -->
+                        </div>
+                        <div class="card_info flex">
+                            <h3>Top Hits</h3>
+                            <p>Artist Lorem dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="playbar flex align-center">
+                <div class="song_info flex">
+                    <div class="current_song_name"><p></p></div>
+                    <div class="song_controls flex">
+                        <!-- Previous -->
+                        <svg class="play_previous" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 19V5L8 12L20 19Z" stroke="#1db954" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path d="M4 4V20" stroke="#1db954" stroke-width="1.5"/>
+                        </svg>
+                        <!-- Play / Pause -->
+                        <div class="play_pause" id="playPause"></div>
+                        <!-- Next -->
+                         <svg class="play_next" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 19V5L16 12L4 19Z" stroke="#1db954" stroke-width="1.5" stroke-linejoin="round"/>
+                            <path d="M20 4V20" stroke="#1db954" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <div class="song_timeAndVolume flex">
+                        <div class="song_time">00:00 / 00:00</div>
+                        <!-- <div class="volume"></div> -->
+                        <div class="volume flex">
+                             <div class="volumeIcon volumeOn hover-pointer"></div>
+                            <input type="range" name="Volume" min="0" max="100" value="30" class="volumeSlider hover-pointer" id="volumeBar">
+                            <span class="volume_value">30</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="seekbar">
+                    <div class="seekbar_fill"></div>
+                    <div class="seekbar_progress_circle hover-pointer"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

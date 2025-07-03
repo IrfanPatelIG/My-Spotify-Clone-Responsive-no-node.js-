@@ -1,0 +1,43 @@
+/* utilities */
+
+.flex {
+    display: flex;
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.wid-100 {
+    width: 100%;
+}
+
+.height-100 {
+    height: 100%;
+}
+
+.border {
+    border: 1px solid #1db954;
+}
+
+ul {
+   list-style: none; 
+}
+
+.hover-pointer {
+    cursor: pointer;
+}
+
+
+.hover-svg-stoke {
+    &:hover {
+        background-color: var(--hover_bg) ;
+        transform: scale(1.02) !important;
+        cursor: pointer;
+    }
+
+    &:hover path {
+        stroke: var(--primary-theme-color);
+    }
+}
