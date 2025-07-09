@@ -1,0 +1,312 @@
+
+@media (max-width: 1239px) {    
+    .card_container {
+
+    }
+    .card {
+        width: 24%;
+        height: 80%;
+    }
+
+    @media (max-width: 1180px) {
+        .card {
+            width: 24%;
+            height: 75%;
+        }
+    }
+
+    @media (max-width: 1105px) {
+        .card {
+            width: 24%;
+            height: 65%;
+        }
+    }
+}
+
+@media (max-width: 1008px)  {    
+    .card_container {
+
+    }
+    .card {
+        width: 32%;
+        height: 78%;
+    }
+}
+
+@media (max-width: 930px) {
+    .hamburger {
+        display: flex;
+    }
+    .sidebar {
+        left: -100%;
+    }
+    .main_section {
+        width: 100vw;
+    }
+    .card {
+        width: 24%;
+        height: 82%;
+    }
+    .song_timeAndVolume {
+        align-items: flex-end !important;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .volume {
+        width: 120px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 845px) {
+    
+    .card {
+        width: 24%;
+        height: 75%;
+    }
+}
+
+@media (max-width: 800px) {
+    
+    .card {
+        width: 24%;
+        height: 70%;
+    }
+}
+
+/* Tablet view */
+@media (min-width: 600px) and (max-width: 1024px) {
+    .main_container {
+        height: 78.51%;
+        background-color: #1db954;
+    }
+    .card {
+        width: 32%;
+        height: 85%;
+    }
+    .playbar {
+        width: calc(100vw - 16px);
+        height: 140px;
+        justify-content: space-between !important;
+        position: inherit;
+        bottom: 10px;
+    }
+    .song_info {
+        flex-direction: column;
+        flex-basis: 85%;
+    }
+    .current_song_name {
+        width: 100%;
+    }
+    .song_controls {
+        width: 100%;
+    }
+    .song_timeAndVolume {
+        width: 100%;
+        justify-content: space-between !important;
+        align-items: center !important;
+        height: 22px;
+        flex-direction: row;
+        gap: 8px;
+        & .volume {
+            height: 100%;
+            & > div {
+                width: 28px;
+                height: 100%;
+            }
+        }
+    }
+    .seekbar {
+        flex-basis: 4.75%;
+    }
+}
+
+@media (max-width: 750px) {
+    
+    .card {
+        width: 32%;
+        height: 85%;
+    }
+}
+
+/* @media (max-width: 660px) {
+    .main_container {
+        height: 78.51%;
+    }
+    .card {
+        height: 75%;
+    }
+    .playbar {
+        width: calc(100vw - 16px);
+        height: 140px;
+        justify-content: space-between !important;
+        position: inherit;
+        bottom: 10px;
+    }
+    .song_info {
+        flex-direction: column;
+        flex-basis: 85%;
+    }
+    .current_song_name {
+        width: 100%;
+    }
+    .song_controls {
+        width: 100%;
+    }
+    .song_timeAndVolume {
+        width: 100%;
+        justify-content: space-between !important;
+        align-items: center !important;
+        height: 22px;
+        flex-direction: row;
+        gap: 8px;
+        & .volume {
+            height: 100%;
+            & > div {
+                width: 28px;
+                height: 100%;
+            }
+        }
+    }
+    .seekbar {
+        flex-basis: 4.75%;
+    }
+} */
+
+@media (max-width: 606px) {
+    .card_container {
+        justify-content: space-between !important;
+    }
+    .card {
+        width: 49%;
+    }
+    .play_button {
+        width: 40px;
+        height: 40px;
+        background-position: 8px;
+        background-size: 28px;
+    }
+    .card:hover {
+        .play_button {
+            bottom: 178px;
+        }
+    }
+    @media (max-width: 506px) {
+        .main_container {
+            height: 78.51%;
+        }
+        .card_container {
+            justify-content: space-around !important;
+        }
+        .card:hover {
+            .play_button {
+                bottom: 165px;
+            }
+        }
+        .card {
+            width: 49%;
+            height: 70%;
+        }
+        .playbar {
+            height: 124px;
+        }
+    }
+    @media (max-width: 450px) {
+        .card_container {
+            justify-content: start !important;
+        }
+        .card {
+            width: 48%;
+            height: 60%;
+        }
+        .play_button {
+            width: 36px;
+            height: 36px;
+            background-size: 26px;
+        }
+        .card:hover {
+            .play_button {
+                bottom: 146px;
+            }
+        }
+    }
+    @media (max-width: 425px) {
+        .sidebar {
+            width: 95%;
+        }
+        .header_left {
+            width: 94px;
+            gap: 10px;
+        }
+        .navigation svg {
+            width: 26px;
+            height: 26px;
+        }
+        .header_right > button {
+            width: 64px;
+            height: 34px;
+            font-size: 13px;
+        }
+        .card {
+            width: 48%;
+            height: 55%;
+        }
+        .play_button {
+            width: 32px;
+            height: 32px;
+            background-position: 8px;
+            background-size: 24px;
+        }
+        .card:hover {
+            .play_button {
+                bottom: 133px;
+            }
+        }
+    }
+    @media (max-width: 375px) {
+        .header_left {
+            width: 94px;
+        }
+        .navigation svg {
+            width: 25px;
+            height: 25px;
+        }
+        .header_right > button {
+            width: 54px;
+            height: 32px;
+            font-size: 12px;
+            border-radius: 48px;
+        }
+        .card {
+            width: 48%;
+            height: 100%;
+        }
+    }
+    @media (max-width: 335px) {
+        .header_left {
+            width: 94px;
+        }
+        .navigation svg {
+            width: 24px;
+            height: 24px;
+        }
+        .card {
+            width: 99%;
+            height: 150%;
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .main_container {
+        height: 58.49%;
+    }
+    .playbar {
+        height: 150px;
+    }
+    .song_timeAndVolume {
+        & .volume {
+            width: 100px;
+        }
+    }
+}

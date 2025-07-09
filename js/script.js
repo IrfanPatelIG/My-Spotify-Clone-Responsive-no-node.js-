@@ -1,18 +1,16 @@
 console.log(`Let's start writting JS code!`);
 
 let songs;
-let currFolder = "naath";
+let currFolder;
 let currentSong = new Audio();
 let playPauseBtn = document.querySelector("#playPause");
 let currentSongName = document.querySelector(".current_song_name").firstElementChild;
-let count = 0;
 let songTime = document.querySelector(".song_time");
 
 function formatTime(seconds) {
     if(isNaN(seconds) || seconds < 0) {
         return 0;
     }
-
     const minutes = Math.floor(seconds / 60);
     const remainingSec = Math.floor(seconds % 60);
 
@@ -45,7 +43,7 @@ function animateSongName() { // song name left to right
 
 async function fetchSongs(folder) {
     currFolder = folder
-    let a = await fetch(`http://127.0.0.1:5500/audios/${folder}/`);
+    let a = await fetch(`/audios/${folder}/`);
     let response = await a.text();
 
     let div = document.createElement("div");
@@ -61,8 +59,7 @@ async function fetchSongs(folder) {
     });
 
 
-    // TESTING!!!!!!!!!!
-    document.querySelector(".song-playlist-heading").innerHTML = currFolder + " - Playlist";
+    // Displaying songs in palylist section in sidebar
     // setting default song on playbar to play
     currentSong.src = songs[0];
     currentSong.addEventListener("loadedmetadata", ()=>{
@@ -70,11 +67,11 @@ async function fetchSongs(folder) {
         songTime.innerHTML = `00:00 / ${formatTime(currentSong.duration)}`;
         document.querySelector("#volumeBar").value = currentSong.volume * 100;
         currentSongName.style.paddingLeft = "0%";
-        resumeMusic();
     });
     currentSongName.innerHTML = decodeString(songs[0]);
     console.log(`Default song is loaded ${currentSong.src} with volume`,currentSong.volume);
 
+    // Populating the actual <ul> of songs where all the songs suppose to be listed
     let playList = document.querySelector("#songs_playlist_id");
     playList.innerHTML = "";
     for (let i = 0; i < songs.length; i++) {
@@ -91,10 +88,9 @@ async function fetchSongs(folder) {
         playList.innerHTML += songInfoHeading;
     }
 
-    // Playing song on click / attach an event listener to each song
+    // Playing song on click / attached an event listener to each song
     Array.from(playList.getElementsByTagName("li")).forEach((e) => {
-        e.addEventListener("click", (element)=> {
-            console.log(e.querySelector(".song_name").firstElementChild.innerHTML.trim());
+        e.addEventListener("click", ()=> {
             let singleSong = e.querySelector(".song_name").firstElementChild.innerHTML.trim();
             playMusic(singleSong);
         })
@@ -114,19 +110,84 @@ let playMusic = (track) => {
     animateSongName();
 }
 
-async function main() {
+async function displayAlbums() {
+    let albumsHTML = await fetch("/audios/")
+    let response = await albumsHTML.text();
 
-    // Populating the Albums in Playlist Container Dynamically
+    let div = document.createElement("div");
+    div.innerHTML = response;
+    let anchors = div.querySelectorAll("#files a");
+    let mainCardContainer = document.getElementsByClassName("card_container")[0];
+    for (let i=0; anchors.length > i; i++) {
+        if(anchors[i].href.includes("/audios/")) {
+            let folderName = anchors[i].href.split("/audios/")[1];
+            let infoFile = await fetch(`/audios/${folderName}/info.json`)
+            let infoJson = await infoFile.json();
+            
+
+            let bg_img = `style="background-image: url(../img/default_cover.png) !important;"`;
+            const coverFile = `cover.jpg`;
+            try {
+                const res = await fetch(`/audios/${folderName}`);
+                const html = await res.text();
+                const divRes = document.createElement("div");
+                divRes.innerHTML = html;
+
+                const anchors = divRes.querySelectorAll("#files li a");
+
+                for (const anchor of anchors) {
+                    const file = anchor.href.split(`/audios/${folderName}/`)[1];
+                    if (file === coverFile) {
+                        bg_img = `style="background-image: url(/audios/${folderName}/${coverFile}) !important;"`;
+                        break;
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching folder contents:", err);
+            }
+
+            let card = `<div data-folderName="${folderName}" class="card flex">
+                        <div class="play_button"></div>
+                        <div class="card_img" ${bg_img}>
+                            <!-- Playlist Image -->
+                        </div>
+                        <div class="card_info flex">
+                            <h3>${infoJson.title}</h3>
+                            <p>${infoJson.description}</p>
+                        </div>
+                    </div>`;
+            mainCardContainer.innerHTML += card;
+        }
+    }
+
+    // Populating the Albums in Songs Playlist Container Dynamically / Displaying the Album's Song in the Library section 
     let cards = document.querySelectorAll(".card");
     cards.forEach(e => {
-        e.addEventListener("click", async () => {
-            currFolder = e.dataset.foldername;
-            console.log(currFolder);
-            document.querySelector(".song-playlist-heading").innerHTML = currFolder + " - Playlist";
-            await fetchSongs(currFolder);
+        let folderName = e.dataset.foldername;
+        const playBtn = e.querySelector(".play_button");
+
+        // Separate play button Eventlistener to play 1st song
+        playBtn.addEventListener("click", async (ev) => {
+            ev.stopPropagation();
+            await fetchSongs(folderName);
+            resumeMusic();
             playPauseBtn.style.backgroundImage = "url(\"img/pause.svg\")";
+            document.querySelector(".song-playlist-heading").innerHTML = e.querySelector(".card_info h3").innerText + " - Playlist";
+        });
+
+        // Full card Eventlistener for just listing the songs
+        e.addEventListener("click", async () => {
+            await fetchSongs(folderName);
+            playPauseBtn.style.backgroundImage = "url(\"img/play.svg\")";
+            document.querySelector(".song-playlist-heading").innerHTML = e.querySelector(".card_info h3").innerText + " - Playlist";
         });
     });
+
+}
+
+async function main() {
+
+    displayAlbums();
 
     // Logic of Play / Pause button
     playPauseBtn.addEventListener("click", (e) => {
@@ -134,7 +195,7 @@ async function main() {
             console.log(`Paying Song: ${decodeString(currentSong.src)}`);
             resumeMusic();
             playPauseBtn.style.backgroundImage = "url(\"img/pause.svg\")";
-            currentSongName.style.animation =`scrolltext 14s linear infinite`;
+            currentSongName.style.animation =`scrollText 14s linear infinite`;
         } else {
             pauseMusic();
             console.log(`Paused Song: ${decodeString(currentSong.src)}`);
@@ -165,7 +226,6 @@ async function main() {
     let songProgressCircle;
     // Listen to timeupdate of currentSong 
     currentSong.addEventListener("timeupdate", (e) => {
-        count += 1;
         let duration = formatTime(currentSong.duration);
         let current_time = formatTime(currentSong.currentTime);
         songTime.innerHTML = `${current_time} / ${duration}`;
@@ -182,7 +242,7 @@ async function main() {
         }
     });
 
-    // Moving seekbar with songs duration
+    // Moving seekbar with song duration
     let seekbar = document.querySelector(".seekbar");
     seekbar.addEventListener("click", (e)=>{
         let seekbarRect = seekbar.getBoundingClientRect();
@@ -199,6 +259,7 @@ async function main() {
         currentSong.volume = volume;
         console.log("Volume is changed to:",volume);
     })
+    
     // show current volume on hover
     const volumeSlider = document.querySelector(".volumeSlider");
     const volumeValue = document.querySelector(".volume_value");
@@ -217,6 +278,9 @@ async function main() {
 
     // Mute / Unmute
     let volumeDiv = document.querySelector(".volume");
+    volumeDiv.firstElementChild.classList.add("volumeOff");
+    volumeDiv.firstElementChild.classList.remove("volumeOff");
+    // volumeDiv.firstElementChild.classList.add("volumeOn");
     volumeDiv.firstElementChild.addEventListener("click", ()=>{
         volumeDiv.firstElementChild.classList.toggle("volumeOff");
         if(volumeDiv.firstElementChild.classList.contains("volumeOff")) {
@@ -242,7 +306,7 @@ async function main() {
                 currentSong.currentTime -= 10;
             } else if (e.key === "ArrowRight") {
                 currentSong.currentTime += 10;
-            } else if (e.key === " ") {
+            } else if (e.key === " " && currentSong.src.length > 0) {
                 e.preventDefault();
                 if (currentSong.paused) {
                     resumeMusic();
@@ -317,10 +381,6 @@ let resumeMusic = () => {
 
 let decodeString = (str) => {
     return str.split(`/audios/${currFolder}/`)[1].replaceAll("%20", " ").replaceAll("_", " ")
-}
-
-async function addAlbums() {
-    document.querySelector(".song-playlist-heading").innerHTML = document.querySelectorAll(".card")[0].dataset.foldername;
 }
 
 main();
