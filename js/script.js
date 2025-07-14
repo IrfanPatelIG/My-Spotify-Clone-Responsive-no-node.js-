@@ -23,11 +23,12 @@ function formatTime(seconds) {
 function animateSongName() { // song name left to right
     const textContainer = document.querySelector(".current_song_name");
     const songName = textContainer.querySelector("p");
+    currentSongName.classList.remove("hide-overflow-text");
 
     // Reset animation and padding first
-    songName.style.animation = "none";
-    songName.style.paddingLeft = "0";
-    songName.style.transform = "translateX(0)";
+    // songName.style.animation = "none";
+    // songName.style.paddingLeft = "0";
+    // songName.style.transform = "translateX(0)";
 
     // Small delay to allow DOM update
     setTimeout(() => {
@@ -66,7 +67,6 @@ async function fetchSongs(folder) {
         currentSong.volume = volumeBar.value / 100;
         songTime.innerHTML = `00:00 / ${formatTime(currentSong.duration)}`;
         document.querySelector("#volumeBar").value = currentSong.volume * 100;
-        currentSongName.style.paddingLeft = "0%";
     });
     currentSongName.innerHTML = decodeString(songs[0]);
     console.log(`Default song is loaded ${currentSong.src} with volume`,currentSong.volume);
@@ -117,18 +117,19 @@ async function displayAlbums() {
     let div = document.createElement("div");
     div.innerHTML = response;
     let anchors = div.querySelectorAll("#files a");
-    let mainCardContainer = document.getElementsByClassName("card_container")[0];
+    let mainCardContainer = document.querySelector(".card_container");
     for (let i=0; anchors.length > i; i++) {
         if(anchors[i].href.includes("/audios/")) {
-            let folderName = anchors[i].href.split("/audios/")[1];
-            let infoFile = await fetch(`/audios/${folderName}/info.json`)
+            console.log(`Anchor [${i}] ${anchors[i]}`);
+            let presentFolderName = anchors[i].href.split("/audios/")[1];
+            let infoFile = await fetch(`/audios/${presentFolderName}/info.json`)
             let infoJson = await infoFile.json();
+            // console.log(`${infoJson.title}`);
             
-
             let bg_img = `style="background-image: url(../img/default_cover.png) !important;"`;
             const coverFile = `cover.jpg`;
             try {
-                const res = await fetch(`/audios/${folderName}`);
+                const res = await fetch(`/audios/${presentFolderName}`);
                 const html = await res.text();
                 const divRes = document.createElement("div");
                 divRes.innerHTML = html;
@@ -136,9 +137,9 @@ async function displayAlbums() {
                 const anchors = divRes.querySelectorAll("#files li a");
 
                 for (const anchor of anchors) {
-                    const file = anchor.href.split(`/audios/${folderName}/`)[1];
+                    const file = anchor.href.split(`/audios/${presentFolderName}/`)[1];
                     if (file === coverFile) {
-                        bg_img = `style="background-image: url(/audios/${folderName}/${coverFile}) !important;"`;
+                        bg_img = `style="background-image: url(/audios/${presentFolderName}/${coverFile}) !important;"`;
                         break;
                     }
                 }
@@ -146,7 +147,7 @@ async function displayAlbums() {
                 console.error("Error fetching folder contents:", err);
             }
 
-            let card = `<div data-folderName="${folderName}" class="card flex">
+            let card = `<div data-folderName="${presentFolderName}" class="card flex">
                         <div class="play_button"></div>
                         <div class="card_img" ${bg_img}>
                             <!-- Playlist Image -->
@@ -160,29 +161,28 @@ async function displayAlbums() {
         }
     }
 
-    // Populating the Albums in Songs Playlist Container Dynamically / Displaying the Album's Song in the Library section 
+    // Populating the Albums in Songs Playlist Container Dynamically / Displaying the Album's Songs in the Library section 
     let cards = document.querySelectorAll(".card");
-    cards.forEach(e => {
-        let folderName = e.dataset.foldername;
-        const playBtn = e.querySelector(".play_button");
+    cards.forEach(card => {
+        let folderName = card.dataset.foldername;
+        const playBtn = card.querySelector(".play_button");
 
         // Separate play button Eventlistener to play 1st song
-        playBtn.addEventListener("click", async (ev) => {
-            ev.stopPropagation();
+        playBtn.addEventListener("click", async (play) => {
+            play.stopPropagation();
             await fetchSongs(folderName);
             resumeMusic();
             playPauseBtn.style.backgroundImage = "url(\"img/pause.svg\")";
-            document.querySelector(".song-playlist-heading").innerHTML = e.querySelector(".card_info h3").innerText + " - Playlist";
+            document.querySelector(".song-playlist-heading").innerHTML = card.querySelector(".card_info h3").innerText;
         });
 
         // Full card Eventlistener for just listing the songs
-        e.addEventListener("click", async () => {
+        card.addEventListener("click", async () => {
             await fetchSongs(folderName);
             playPauseBtn.style.backgroundImage = "url(\"img/play.svg\")";
-            document.querySelector(".song-playlist-heading").innerHTML = e.querySelector(".card_info h3").innerText + " - Playlist";
+            document.querySelector(".song-playlist-heading").innerHTML = card.querySelector(".card_info h3").innerText;
         });
     });
-
 }
 
 async function main() {
@@ -195,13 +195,13 @@ async function main() {
             console.log(`Paying Song: ${decodeString(currentSong.src)}`);
             resumeMusic();
             playPauseBtn.style.backgroundImage = "url(\"img/pause.svg\")";
-            currentSongName.style.animation =`scrollText 14s linear infinite`;
+            currentSongName.classList.remove("hide-overflow-text");
+            currentSongName.style.animationPlayState = "running";
         } else {
             pauseMusic();
             console.log(`Paused Song: ${decodeString(currentSong.src)}`);
             playPauseBtn.style.backgroundImage = "url(\"img/play.svg\")";
-            currentSongName.style.animation = "none";
-            currentSongName.style.paddingLeft = "0%";
+            currentSongName.style.animationPlayState = "paused";
         }
     })
 
@@ -237,7 +237,9 @@ async function main() {
         if(progressPercent === 100) {
             playPauseBtn.style.backgroundImage = "url(\"img/play.svg\")";
             if(currentSong.paused) {
+                currentSongName.classList.add("hide-overflow-text");
                 currentSongName.style.animation = "none";
+                currentSongName.style.paddingLeft = "0%";
             }
         }
     });
@@ -311,12 +313,11 @@ async function main() {
                 if (currentSong.paused) {
                     resumeMusic();
                     playPauseBtn.style.backgroundImage = "url('img/pause.svg')";
-                    currentSongName.style.animation = `scrolltext 14s linear infinite`;
+                    currentSongName.style.animationPlayState = "running";
                 } else {
                     pauseMusic();
                     playPauseBtn.style.backgroundImage = "url('img/play.svg')";
-                    currentSongName.style.animation = "none";
-                    currentSongName.style.paddingLeft = "0%";
+                    currentSongName.style.animationPlayState = "paused";
                 }
             } else {
                 console.log("Other key:", e.key);

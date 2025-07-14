@@ -41,3 +41,10 @@ ul {
         stroke: var(--primary-theme-color);
     }
 }
+
+.hide-overflow-text {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
