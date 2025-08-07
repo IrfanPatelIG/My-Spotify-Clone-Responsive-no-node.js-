@@ -25,11 +25,6 @@ function animateSongName() { // song name left to right
     const songName = textContainer.querySelector("p");
     currentSongName.classList.remove("hide-overflow-text");
 
-    // Reset animation and padding first
-    // songName.style.animation = "none";
-    // songName.style.paddingLeft = "0";
-    // songName.style.transform = "translateX(0)";
-
     // Small delay to allow DOM update
     setTimeout(() => {
         const containerWidth = textContainer.offsetWidth;
@@ -91,6 +86,7 @@ async function fetchSongs(folder) {
     // Playing song on click / attached an event listener to each song
     Array.from(playList.getElementsByTagName("li")).forEach((e) => {
         e.addEventListener("click", ()=> {
+            // e.classList.add("playing-song");
             let singleSong = e.querySelector(".song_name").firstElementChild.innerHTML.trim();
             playMusic(singleSong);
         })

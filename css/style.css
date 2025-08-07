@@ -240,6 +240,9 @@ body {
     padding: 8px 6px;
     overflow-y: auto;
 }
+.playing-song {
+    border: .51px solid var(--primary-theme-color);
+}
 .playlist {
     width: 100%;
     overflow: visible;
@@ -248,6 +251,7 @@ body {
     gap: 6px;
 
     &>li {
+        border: .51px solid transparent;
         height: 62px;
         display: flex;
         justify-content: flex-start;
@@ -260,6 +264,7 @@ body {
     }
 
     &>li:hover {
+        border-color: var(--primary-theme-color);
         transform: translate(-3px, -3px);
         background-color: var(--hover_bg);
     }
@@ -585,8 +590,10 @@ body {
     width: 28px;
     height: 28px;
     border-radius: 4px;
+    transition: transform .13s ease-in-out;
 
     &:hover {
+        transform: scale(1.1);
         cursor: pointer;
     }
 }
